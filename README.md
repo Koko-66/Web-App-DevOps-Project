@@ -26,6 +26,19 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 
 - **Data Validation:** Ensure data accuracy and completeness with required fields, date restrictions, and card number validation.
 
+## Features pending implementation
+- **Delivery Date:** A column to track delivery dates for orders. Can be used to gain valuable insights into various metrics, e.g.:
+    - Track the number of orders made/shipped vs. delivered.
+    - Track the success rate of deliveries per user to identify potential issues with addresses/unwanted customer behaviour.
+    - In conjunction with Shipping Date, can be used 'time-to-delivery' providing valuable insights into potential issues with delivery service providers/bottlenecks.
+    - Track and compare the performance (delivery succes/time-to-delivery) of various delivery service providers, etc.
+    
+    The feature was implemented successfully in feature branch `feature/add-delivery-date` and is ready to be merged into the production branch when required (provided there are no merge conflicts).
+
+    NOTE: It is recommended that additional functionality implementing solutions mentioned above are done in separate branch(es).
+    
+    [Screenshot to be added]
+
 ## Getting Started
 
 ### Prerequisites
