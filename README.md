@@ -7,6 +7,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Technology Stack](#technology-stack)
+- [Docker Image and Containerization process](#docker-image-and-containerization-process)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -30,7 +31,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - **Delivery Date:** A column to track delivery dates for orders. Can be used to gain valuable insights into various metrics, e.g.:
     - Track the number of orders made/shipped vs. delivered.
     - Track the success rate of deliveries per user to identify potential issues with addresses/unwanted customer behaviour.
-    - In conjunction with Shipping Date, can be used 'time-to-delivery' providing valuable insights into potential issues with delivery service providers/bottlenecks.
+    - In conjunction with Shipping Date, can be used to track 'time-to-delivery' providing valuable insights into potential issues with delivery service providers/bottlenecks.
     - Track and compare the performance (delivery succes/time-to-delivery) of various delivery service providers, etc.
     
     The feature was implemented successfully in feature branch `feature/add-delivery-date` and is ready to be merged into the production branch when required (provided there are no merge conflicts).
@@ -66,9 +67,36 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 - **Database:** The application employs an Azure SQL Database as its database system to store order-related data.
 
+## Docker Image and Containerization process
+
+The app is also available as a Docker image, which will careate the environment and take care of all the isntallations for you.
+
+### Prerequisities
+
+In order to run this container you'll need docker installed.
+
+* [Windows](https://docs.docker.com/windows/started)
+* [OS X](https://docs.docker.com/mac/started/)
+* [Linux](https://docs.docker.com/linux/started/)
+
+### Install and setup
+
+You can either pull the image prepared for you from DockerHub using `docker pull koko660/flask-orders-app` command or build the image yourself. The steps taken to containerize the application are described in detail in [_Containerization process.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Containerization%20process.md).
+
+### Usage
+
+#### Container Parameters and Environment Variables
+
+v1.0: none required
+
+## Versioning
+
+Latest image: flask-orders-app:v1.0 
+
 ## Contributors 
 
-- [Maya Iuga]([https://github.com/yourusername](https://github.com/maya-a-iuga))
+- [Maya Iuga](https://github.com/maya-a-iuga)
+- [Koko-66](https://github.com/koko-66)
 
 ## License
 
