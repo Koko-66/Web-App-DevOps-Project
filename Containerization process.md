@@ -12,7 +12,7 @@ Commands included in the Dockerfile:
 3. `COPY . /app`: copies the contents of the local directory into the container's `/app` directory to ensure the application code and files are available within the container.
 
 4. `RUN apt-get update...`: sets up the environment for Microsoft ODBC Driver for SQL Server on a Debian-based system, including installing necessary dependencies, adding the Microsoft repository, and installing the ODBC driver.
-    Below is a more detailed description of individual commands in this block and what they do<sup>*</sup>:
+    Below is a more detailed description of individual commands in this block and what they do:
 
     - `RUN apt-get update`: updates the package list to get the latest information on available packages.
 
@@ -34,13 +34,11 @@ Commands included in the Dockerfile:
 
     - `apt-get clean`: cleans the local repository of retrieved package files that are no longer necessary.
 
-    <span style="color:green"><sup>*</sup>Descriptions obtained with help of ChatGPT.</span>
-
 5. `RUN pip install --upgrade pip setuptools`: upgrades  `pip` and `setuptools` to their latest versions to ensure that the subsequent Python packages installed using pip benefit from bug fixes, new features, and improvements in the package management system.
 
 6. `RUN pip install --trusted-host pypi.python.org -r requirements.txt`: installs Python packages required to run the application, specifyng pypi.python.org as a trusted host.
 
-7. `EXPOSE 5000`: exposes port 5000 to allow access to the Flask application from outside of the container. See [Troubleshooting](#running-the-container---truoubleshooting) section below for potenital issues with accessing 5000 port on a Mac and how to solve them.
+7. `EXPOSE 5000`: exposes port 5000 to allow access to the Flask application from outside of the container. See [Troubleshooting](#running-the-container---troubleshooting) section below for potenital issues with accessing 5000 port on a Mac and how to solve them.
 
 8. `CMD ["python", "app.py]`: runs app.py file with Python.
 
@@ -60,7 +58,7 @@ If you decided to create your own image, you can push to your own Docker Hub. To
 Once this is done, executing `docker push` will push the image to your the hub. (Make sure you are logged in to your Docker Hub account).
 It is recommended that the newly pushed image is tested following the testing steps as described above: pull the image, run the container and test access to the application.
 
-## Running the container - Truoubleshooting
+## Running the container - Troubleshooting
 
 _**Issue**_: Mac users can get an error: <span style="color:#ca1b47">_Port 5000 is already in use_</span> when trying to run the container.
 

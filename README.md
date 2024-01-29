@@ -69,7 +69,11 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 ## Docker Image and Containerization process
 
-The app is also available as a Docker image, which will careate the environment and take care of all the isntallations for you.
+The app has been containerized &mdash; packaged up with all its code, dependencies, necessary executables and configuration files &mdash; to facilitate easy and quick deployment.
+
+Containerization has many benefits. Because containers encapsulate applications with all their dependencies, they run consistently irrespective of the end user's operating system or environment. This isolation of the container's content promotes security and prevents conflicts between applications and libraries. Containers are also highly portable and efficient. They can be easily run on any machine(s) now matter what its underlying infrastructure, and becuase they share the host's OS kernel, they do not take up unnecessary resources and are very lightweight.
+
+These advantages are especially important in a DevOps setting, where applications are deployed across different environments (e.g. development, test, production) and shared between developers working on machines with different OS and hardware. Their small and lightweight nature make continuous deployment easy, and because they can be used together to build larger multi-container applications they offer great flexiblity and scalability.
 
 ### Prerequisities
 
@@ -89,7 +93,7 @@ You can either pull the image prepared for you from DockerHub using `docker pull
 
 v1.0: none required
 
-## Versioning
+### Versioning
 
 Latest image: flask-orders-app:v1.0 
 
