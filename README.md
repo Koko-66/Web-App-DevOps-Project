@@ -8,6 +8,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Getting Started](#getting-started)
 - [Technology Stack](#technology-stack)
 - [Docker Image and Containerization process](#docker-image-and-containerization-process)
+- [Terraform (IaC)](#Terraform-(IaC))
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -96,6 +97,38 @@ v1.0: none required
 ### Versioning
 
 Latest image: flask-orders-app:v1.0 
+
+## Terraform (IaC)
+
+Terraform is an Infrastructure as Code tool allowing to define and provision the infrastructure resources (e.g. virtual machines, networks, and databases) in a declarative way using code. The code defines the infrastructure configurations, which can then be executed to create, modify, or destroy the specified resources.
+
+IaC is a powerfull tool in the hands of DevOps enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
+
+Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: 
+
+### 1. **networking-module**
+
+This module provisions networking components in the Azure Networking Services needed to support the AKS cluster. These components include:
+- _Virtual Network (VNet)_: the foundation of the AKS cluster defining IP address space as 10.0.0.0/16<sup>*</sup>.
+- two _subnets_ :
+    - control-plane-subnet: running on 10.0.1.0/24 within the main vnet and dedicated to hostng the AKS cluster's control plane components.
+    - worker-nodes-subnet: running on 10.0.2.0/24 (to prevent conflicts with the first subnet) where the cluster's worker nodes will be hosted.
+- _Networking Security group (NSG)_ with two rules for inbound traffic:
+    - kube-apiserver-rule Port (TCP/443) which enables access to the cluster from a specified public IP address using `kubectl`.
+    - SSH Port (TCP/22) which allows SSH access to the nodes for troubleshooting and amdinistrative purposes from the specified public IP address.
+
+<sup>*</sup>NOTE: all address spaces are defined using CIDR (Calssless Inter-Domain Routing) notation where the number after slash indicates the subnet mask, specifying the number of bits in the address space that cannot be changed. 10.0.0.0/16 gives an address space range between 10.0.0.0 and 10.0.255.255 while subnet maks give a range between 10.0.1.0 and 10.0.1.255 and 10.0.2.0 and 10.0.2.255.
+
+The module also specifies several output values required as input in the aks-cluster-module.
+
+In order to protect sensitive iformation Terraform offers an option to store sensitive information in a .tfvars file. The values, rather than being hardcoded into the code, can be then pulled at runtime using a `-var-file="<terraform>.tfvars` flag when running `terraform plan` or `apply` commands, e.g. `terraform plan -var-file="mysecrets.tfvars"`. In this part of the project, we used this solution to protect the value of `var.source_ip`, used in the security rules to allow access to the cluster from the user's machine/IP address. The variable is also tagged as `sensitive`, preventing terraform from showing it in the `plan` and `apply` commands output.
+
+<img src="image.png" alt="tplan-screenshot-sensitive-value" style="width:400px;"/>
+
+
+### 2. **aks-cluster-module**: to provision the AKS cluster.
+
+Provisions resource group with v_net 
 
 ## Contributors 
 
