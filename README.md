@@ -104,7 +104,7 @@ Terraform is an Infrastructure as Code tool allowing to define and provision the
 
 IaC is a powerfull tool in the hands of DevOps enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
 
-Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: 
+Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. 
 
 ### 1. **networking-module**
 
@@ -118,8 +118,27 @@ This module provisions networking components in the Azure Networking Services ne
     - SSH Port (TCP/22) which allows SSH access to the nodes for troubleshooting and amdinistrative purposes from the specified public IP address.
 
 <sup>*</sup>NOTE: all address spaces are defined using CIDR (Calssless Inter-Domain Routing) notation where the number after slash indicates the subnet mask, specifying the number of bits in the address space that cannot be changed. 10.0.0.0/16 gives an address space range between 10.0.0.0 and 10.0.255.255 while subnet maks give a range between 10.0.1.0 and 10.0.1.255 and 10.0.2.0 and 10.0.2.255.
+***
 
-The module also specifies several output values required as input in the aks-cluster-module.
+### Module variables
+<span style="color:#10a292; font-size:1.1em;">Input variables</span>
+|Variable name|Description|
+|-------------|-----------|
+|`resource_group_name`| The name of the resource group for the project.|
+|`location`| The Azure region where the resources will be deployed.|
+|`vnet_address_space`| The address space used for the virtual network.|
+|`source_ip`| The source IP address for use in the network security rule.|
+
+<span style="color:#10a292; font-size:1.1em;">Output variables</span> (required for the aks-cluster-module)
+|Variable name|Description|
+|-------------|-----------|
+|`vnet_id`| The ID of the created virtual network.|
+|`control_plane_subnet_id`| The ID of the created control plane subnet.|
+|`worker_node_subnet_id`| The ID of the created worker node subnet.|
+|`networking_resource-group-name`| The name of the created resource group with the networking resources.|
+|`aks_nsg_id`| The ID of the created network security group for the AKS cluster.|
+
+### Handling sensitive information
 
 In order to protect sensitive iformation Terraform offers an option to store sensitive information in a .tfvars file. The values, rather than being hardcoded into the code, can be then pulled at runtime using a `-var-file="<terraform>.tfvars` flag when running `terraform plan` or `apply` commands, e.g. `terraform plan -var-file="mysecrets.tfvars"`. In this part of the project, we used this solution to protect the value of `var.source_ip`, used in the security rules to allow access to the cluster from the user's machine/IP address. The variable is also tagged as `sensitive`, preventing terraform from showing it in the `plan` and `apply` commands output.
 
