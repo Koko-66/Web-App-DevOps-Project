@@ -13,7 +13,7 @@ output "worker_node_subnet_id" {
     value = azurerm_subnet.worker-node-subnet.id
 }
 
-output "networking_resource-group-name" {
+output "networking_resource_group_name" {
     description = "The name of the resource group where the networking resources are created"
     value = azurerm_resource_group.networking.name
 }
