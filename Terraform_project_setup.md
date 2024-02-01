@@ -32,12 +32,9 @@ This module provisions networking components in the Azure Networking Services ne
 |`networking_resource-group-name`| The name of the created resource group with the networking resources.|
 |`aks_nsg_id`| The ID of the created network security group for the AKS cluster.|
 
-<img src="image.png" alt="tplan-screenshot-sensitive-value" style="width:400px;"/>
+## **aks-cluster-module**
 
-
-## **aks-cluster-module**: to provision the AKS cluster.
-
-This module specifies the AKS cluster resources necessary to provision the AKS cluster. 
+This module specifies the AKS cluster resources necessary to provision the AKS cluster.
 Apart from creating the cluster, the code also defines the default node pool with the following parameters: 
 
 - default count set to one
@@ -63,6 +60,7 @@ Serivce principal block provides authentication details needed to access Azure a
 |`vnet_id`*| The ID of the VNet in which to create the AKS cluster.|
 |`control_plane_subnet_id`*| The ID of the subnet in which to create the AKS cluster control plane.|
 |`worker_node_subnet_id`*| The ID of the subnet in which to create the AKS cluster worker nodes.|
+|`aks_nsg_id`*| The ID of the NSG to associate with the AKS cluster|
 
 *_Variables defined as output in the networking-module, required as input values to provision the cluster_
 
@@ -73,6 +71,32 @@ Serivce principal block provides authentication details needed to access Azure a
 |`aks_cluster_id`| The ID of the AKS cluster.|
 |`aks_kubeconfig`| The Kubernetes configuration file of the AKS cluster essential for interacting with and managing the AKS cluster using kubectl.|
 
+
+## Main Configuration
+The main.tf configuration file for the project contains code that:
+- sets up the provider for the project as AzureRM v.3.0.0;
+- provides authentication details for accessing Azure platform (see [Handling sensitive information](#handling-sensitive-information)) section below);
+- links networking module to the main project, providing values for the resource_group_name, location and vnet_address_space;
+- links the cluster module to the main project, providing values for the aks_cluster_name, cluster_location, dns_prefix, kubernetes_version.
+
+<span style="color:#10a292; font-size:1.1em;">Input variables</span>
+
+|Variable name|Description|
+|-------------|-----------|
+|`client_id`| Access key for the provider|
+|`client_secret`| Secret key for the provider|
+|`subscription_id`| Subscription ID for the provider|
+|`tenant_id`| Tenant ID for the provider|
+|`source_ip`| The source IP address for use in the network security rule|
+
+All variables specified above have "sensitive" attribute set to `true`.
+
+
 ## Handling sensitive information
 
-In order to protect sensitive iformation Terraform offers an option to store sensitive information in a .tfvars file. The values, rather than being hardcoded into the code, can be then pulled at runtime using a `-var-file="<terraform>.tfvars` flag when running `terraform plan` or `apply` commands, e.g. `terraform plan -var-file="mysecrets.tfvars"`. In this part of the project, we used this solution to protect the value of `var.source_ip`, used in the security rules to allow access to the cluster from the user's machine/IP address. The variable is also tagged as `sensitive`, preventing terraform from showing it in the `plan` and `apply` commands output.
+In order to protect sensitive iformation Terraform offers an option to store these in a .tfvars file. The values, rather than being hardcoded into the code, can be then pulled at runtime using a `-var-file="<terraform>.tfvars` flag when running `terraform plan` or `apply` commands, e.g. `terraform plan -var-file="mysecrets.tfvars"`. In this project, we used this solution to protect the values of: 
+- `var.source_ip`, used in the security rules to allow access to the cluster from the user's machine/IP address and
+- information required for authorization (i.e. `client_id`, `client_secret`, `subscription_id` and `tenat_id`)
+The variables are also tagged as "sensitive", preventing terraform from showing their values in the *plan* and **apply* commands - `(sensitive value)` is shown instead as illustrated in the image below.
+
+<img src="image.png" alt="tplan-screenshot-sensitive-value" style="width:400px;"/>
