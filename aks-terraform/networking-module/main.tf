@@ -1,27 +1,14 @@
-terraform {
-    required_providers {
-        azurerm = {
-            source = "hashicorp/azurerm"
-            version = "=3.0.0"
-        }
-    }
-}
-
-provider "azurerm" {
-    features {}
-}
-
 # Create the resource group for networking resources
 resource "azurerm_resource_group" "networking" {
-    name = var.resource_group_name
-    location = var.location
+    name        = var.resource_group_name
+    location    = var.location
 }
 
 # Create the virtual network
 resource "azurerm_virtual_network" "aks-vnet" {
-    name = "aks-vnet"
-    address_space = var.vnet_address_space
-    location = var.location
+    name            = "aks-vnet" // will need to be changed to a variable!
+    address_space   = var.vnet_address_space
+    location           = var.location
     resource_group_name = var.resource_group_name
 }
 
