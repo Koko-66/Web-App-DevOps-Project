@@ -47,4 +47,8 @@ variable "worker_node_subnet_id" {
     type        = string
 }
 
+variable "aks_nsg_id" {
+    description = "The ID of the NSG to associate with the AKS cluster"
+    type        = string
+}
 
