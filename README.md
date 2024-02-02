@@ -8,7 +8,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Getting Started](#getting-started)
 - [Technology Stack](#technology-stack)
 - [Docker Image and Containerization process](#docker-image-and-containerization-process)
-- [Terraform (IaC)](#Terraform-(IaC))
+- [Terraform (IaC)](#terraform-iac)
 - [Contributors](#contributors)
 - [License](#license)
 
