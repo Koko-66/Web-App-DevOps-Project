@@ -86,7 +86,7 @@ In order to run this container you'll need docker installed.
 
 ### Install and setup
 
-You can either pull the image prepared for you from DockerHub using `docker pull koko660/flask-orders-app` command or build the image yourself. The steps taken to containerize the application are described in detail in [_Containerization process.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Containerization%20process.md).
+You can either pull the image prepared for you from DockerHub using `docker pull koko660/flask-orders-app` command or build the image yourself. The steps taken to containerize the application are described in detail in [_Containerization process.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Containerization_process.md).
 
 ### Usage
 
@@ -104,7 +104,14 @@ Terraform is an Infrastructure as Code tool allowing to define and provision the
 
 IaC is a powerfull tool in the hands of DevOps enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
 
-Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [Terraform project setup.md](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Terraform_project_setup.md). 
+Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [Terraform project setup.md](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Terraform_project_setup.md). 
+
+## Kubernetes deployment 
+
+Deploying the containers using Kubernetes offers significant advantages. It mitigates errors by automating the processes of deploying, scaling and updating applications, and adds to the overal portability of the whole app, which can be easily moved between different enviornments. 
+It also allows to quickly scale the applicaton up or down, depending on need, and is designed to be self-healing - it monitors its components for failures and can automatically recover from them. 
+
+The doployment process and manifests used in this project are described in more detail in [Deploying_with_Kubernetes.md](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Deploying_with_Kubernetes.md)
 
 
 ## Contributors 

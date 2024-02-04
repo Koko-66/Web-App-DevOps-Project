@@ -1,0 +1,41 @@
+# Deployment manifest
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: flask-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-orders-app
+  template: 
+    metadata: 
+      labels:
+        app: flask-orders-app
+    spec:
+      containers:
+      - name: flask-orders-app-container
+        image: koko660/flask-orders-app:v1.0
+        ports:
+        - containerPort: 5000
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+---
+# Service manifest
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec: 
+  selector: 
+    app: flask-orders-app
+  ports:
+  - protocol: TCP
+    port: 80 # internal communication
+    targetPort: 5000 # container port
+  type: ClusterIP
