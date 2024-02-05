@@ -5,7 +5,7 @@
 Commands included in the Dockerfile:
 
 1. `FROM --platform=linux/amd64 public.ecr.aws/docker/library/python:3.9.10-slim-buster`: uses Python image as base image.
-    The image specified in the file is chosen for compatibilty with a M1/M2 chip Mac. If working on Windows or Linux a standard python image suitable for running Flask apps (e.g. `python:3.8-slim`), can be used.
+    The image specified in the file is chosen for compatibility with a M1/M2 chip Mac. If working on Windows or Linux a standard python image suitable for running Flask apps (e.g. `python:3.8-slim`), can be used.
 
 2. `WORKDIR /app`: sets working directory to `/app`.
 
@@ -18,7 +18,7 @@ Commands included in the Dockerfile:
 
     - `apt-get install -y unixodbc unixodbc-dev odbcinst odbcinst1debian2 libpq-dev gcc`: Installs packages required for ODBC (Open Database Connectivity) support, including development libraries (unixodbc-dev, libpq-dev, gcc).
 
-    - `apt-get install -y gnupg`: installs GNU Privacy Guard (GPG) requied for secure communication with Microsoft APT repository.
+    - `apt-get install -y gnupg`: installs GNU Privacy Guard (GPG) required for secure communication with Microsoft APT repository.
 
     - `apt-get install -y wget`: installs the wget command-line utility for downloading files.
 
@@ -36,15 +36,15 @@ Commands included in the Dockerfile:
 
 5. `RUN pip install --upgrade pip setuptools`: upgrades  `pip` and `setuptools` to their latest versions to ensure that the subsequent Python packages installed using pip benefit from bug fixes, new features, and improvements in the package management system.
 
-6. `RUN pip install --trusted-host pypi.python.org -r requirements.txt`: installs Python packages required to run the application, specifyng pypi.python.org as a trusted host.
+6. `RUN pip install --trusted-host pypi.python.org -r requirements.txt`: installs Python packages required to run the application, specifying pypi.python.org as a trusted host.
 
-7. `EXPOSE 5000`: exposes port 5000 to allow access to the Flask application from outside of the container. See [Troubleshooting](#running-the-container---troubleshooting) section below for potenital issues with accessing 5000 port on a Mac and how to solve them.
+7. `EXPOSE 5000`: exposes port 5000 to allow access to the Flask application from outside of the container. See [Troubleshooting](#running-the-container---troubleshooting) section below for potential issues with accessing 5000 port on a Mac and how to solve them.
 
 8. `CMD ["python", "app.py]`: runs app.py file with Python.
 
 ## Build Docker image
 
-To build the docker image run `docker build -t <image-name>` command in your temrinal, replacing `<image-name>` with name of your choice.
+To build the docker image run `docker build -t <image-name>` command in your terminal, replacing `<image-name>` with name of your choice.
 We chose `flask-orders-app`.
 
 ### Test containerization
@@ -64,7 +64,7 @@ _**Issue**_: Mac users can get an error: <span style="color:#ca1b47">_Port 5000 
 
 _**Reason**_: Port 5000 is used by Mac for an AirPlay Receiver. 
 
-_**Solution**_: You can either disable AirPlay Receiver from Settings > AirDrop & Handoff or you can map the container to a different port on your machine, e.g. port 5001. To do this use the following command when buildin an image: `docker run -p 5001:5000 flask-orders-app`. This will map the container port 5000 to port 5001 on your localhost.
+_**Solution**_: You can either disable AirPlay Receiver from Settings > AirDrop & Handoff or you can map the container to a different port on your machine, e.g. port 5001. To do this use the following command when building an image: `docker run -p 5001:5000 flask-orders-app`. This will map the container port 5000 to port 5001 on your localhost.
 The application will then be accessible at http://127.0.0.1:5001 rather than http://127.0.0.1:5000 as indicated by Flask.
 ***
 _**Issue**_: When running the app, a warning message appears: <span style="color:orange">_WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested_</span>

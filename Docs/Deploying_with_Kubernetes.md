@@ -10,9 +10,9 @@ Specifications in the `spec` section:
 - number of `replicas` set to 2 (allows app to run concurrently on two pods, for scalability and high availability
 - `selector > matchLabels > app` set to `flask-orders-app` (allows Kubernetes to identify pods the Deployment should manage) 
 - `template > metadata > labels > app` set to `flask-orders-app` (gives the pods the same label as the selector to establish connection between them and the application that is managed)
-- `spec > container` set to the applications Docker image. This part also exposes port 5000 for communication within the AKS cluster. 
+- `spec > container` set to the applications Docker image without specifying a tag to ensure always the latest image is pulled in. This part also exposes port 5000 for communication within the AKS cluster. 
 - `strategy` selected for the project: RollingUpdate with both max unavailable pods and max new pods set to 1 to ensure continuous app availability.
-    This strategy is ideal for this kind of project as it offers minimal downtime, and remembers the current state of data, which means that the users can continue checking and adding orders even during updates. It is also quick and easy to implment, which aligns with the size of application and it's internal nature.
+    This strategy is ideal for this kind of project as it offers minimal downtime, and remembers the current state of data, which means that the users can continue checking and adding orders even during updates. It is also quick and easy to implement, which aligns with the size of application and it's internal nature.
 
 ### Service
 Service resource is required to enable internal communication within the AKS cluster. Resource details:
@@ -45,7 +45,7 @@ To implement NodePort:
 1. Change _Service_ `type` from ClusterIP to NodePort in the Service manifest.
 2. You can optionally specify the `nodePort` (in the `ports` section) in the 30000-32767 range. If not specified, Kubernetes will assign one automatically.
 3. Deploy the manifest again, to apply the changes.
-4. Check wether everything is running as should, e.g. by running `kubectl get all`
+4. Check whether everything is running as should, e.g. by running `kubectl get all`
 5. Find the External IP and the NodePort, if you did not specify it. You can run `kubectl get svc flask-app-service` to get both of these. 
 The URL for the app would be <span style="color:orange">http://\<Node-Public-IP>:\<NodePort></span>. e.g. http://123.45.67.89:3109
 6.  Test if everything is running as expected.
@@ -59,7 +59,7 @@ If the need to share the application outside of organisation arises, the best wa
 Allowing external users access to the application comes with additional considerations surrounding security and app maintenance.
 Some of the things to consider include:
 
-- Implmenetation of **Kubernetes Network Policies** to control traffic between different parts of the application and restricting access to the app.
+- Implementation of **Kubernetes Network Policies** to control traffic between different parts of the application and restricting access to the app.
 - Implementation of **authentication and authorization** mechanisms to ensure that only authorized users can access sensitive parts of the application.
 - Setting up **monitoring and logging** to track access patterns, errors, and potential security issues.
 - Following **security best practices** for both AKS and a Flask application, including regular security updates, secure coding practices, etc.
