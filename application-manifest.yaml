@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: flask-orders-app-container
-        image: koko660/flask-orders-app:v1.0
+        image: koko660/flask-orders-app
         ports:
         - containerPort: 5000
   strategy: 
