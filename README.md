@@ -33,7 +33,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
     - Track the number of orders made/shipped vs. delivered.
     - Track the success rate of deliveries per user to identify potential issues with addresses/unwanted customer behaviour.
     - In conjunction with Shipping Date, can be used to track 'time-to-delivery' providing valuable insights into potential issues with delivery service providers/bottlenecks.
-    - Track and compare the performance (delivery succes/time-to-delivery) of various delivery service providers, etc.
+    - Track and compare the performance (delivery success/time-to-delivery) of various delivery service providers, etc.
     
     The feature was implemented successfully in feature branch `feature/add-delivery-date` and is ready to be merged into the production branch when required (provided there are no merge conflicts).
 
@@ -45,7 +45,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 
 ### Prerequisites
 
-For the application to succesfully run, you need to install the following packages:
+For the application to successfully run, you need to install the following packages:
 
 - flask (version 2.2.2)
 - pyodbc (version 4.0.39)
@@ -72,11 +72,11 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 The app has been containerized &mdash; packaged up with all its code, dependencies, necessary executables and configuration files &mdash; to facilitate easy and quick deployment.
 
-Containerization has many benefits. Because containers encapsulate applications with all their dependencies, they run consistently irrespective of the end user's operating system or environment. This isolation of the container's content promotes security and prevents conflicts between applications and libraries. Containers are also highly portable and efficient. They can be easily run on any machine(s) now matter what its underlying infrastructure, and becuase they share the host's OS kernel, they do not take up unnecessary resources and are very lightweight.
+Containerization has many benefits. Because containers encapsulate applications with all their dependencies, they run consistently irrespective of the end user's operating system or environment. This isolation of the container's content promotes security and prevents conflicts between applications and libraries. Containers are also highly portable and efficient. They can be easily run on any machine(s) now matter what its underlying infrastructure, and because they share the host's OS kernel, they do not take up unnecessary resources and are very lightweight.
 
-These advantages are especially important in a DevOps setting, where applications are deployed across different environments (e.g. development, test, production) and shared between developers working on machines with different OS and hardware. Their small and lightweight nature make continuous deployment easy, and because they can be used together to build larger multi-container applications they offer great flexiblity and scalability.
+These advantages are especially important in a DevOps setting, where applications are deployed across different environments (e.g. development, test, production) and shared between developers working on machines with different OS and hardware. Their small and lightweight nature make continuous deployment easy, and because they can be used together to build larger multi-container applications they offer great flexibility and scalability.
 
-### Prerequisities
+### Prerequisites
 
 In order to run this container you'll need docker installed.
 
@@ -102,17 +102,22 @@ Latest image: flask-orders-app:v1.0
 
 Terraform is an Infrastructure as Code tool allowing to define and provision the infrastructure resources (e.g. virtual machines, networks, and databases) in a declarative way using code. The code defines the infrastructure configurations, which can then be executed to create, modify, or destroy the specified resources.
 
-IaC is a powerfull tool in the hands of DevOps enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
+IaC is a powerful tool in the hands of DevOps enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
 
-Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [Terraform project setup.md](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Terraform_project_setup.md). 
+Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [_Terraform project setup.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Terraform_project_setup.md). 
 
 ## Kubernetes deployment 
 
-Deploying the containers using Kubernetes offers significant advantages. It mitigates errors by automating the processes of deploying, scaling and updating applications, and adds to the overal portability of the whole app, which can be easily moved between different enviornments. 
-It also allows to quickly scale the applicaton up or down, depending on need, and is designed to be self-healing - it monitors its components for failures and can automatically recover from them. 
+Deploying the containers using Kubernetes offers significant advantages. It mitigates errors by automating the processes of deploying, scaling and updating applications, and adds to the overall portability of the whole app, which can be easily moved between different environments. 
+It also allows to quickly scale the application up or down, depending on need, and is designed to be self-healing - it monitors its components for failures and can automatically recover from them. 
 
-The doployment process and manifests used in this project are described in more detail in [Deploying_with_Kubernetes.md](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Deploying_with_Kubernetes.md)
+The deployment process and manifests used in this project are described in more detail in [_Deploying_with_Kubernetes.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Deploying_with_Kubernetes.md)
 
+## CI/CD implementation
+
+The project takes advantage of the CI/CD capabilities of Azure DevOps' **Pipelines** to automate the building of Docker image and deployment of the app to the AKS cluster. This approach ensures automated, efficient and consistent process for implementing code changes and their deployment.
+
+The details of the CI/CD pipeline configuration can be found in the file [_Pipeline_configuration.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Pipeline_configuration.md)
 
 ## Contributors 
 
