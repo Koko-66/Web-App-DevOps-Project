@@ -12,7 +12,7 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'Docker Hub'
+    containerRegistry: 'docker-hub-service-connection'
     repository: 'koko660 / flask-orders-app'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
