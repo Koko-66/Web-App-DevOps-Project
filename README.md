@@ -119,6 +119,14 @@ The project takes advantage of the CI/CD capabilities of Azure DevOps' **Pipelin
 
 The details of the CI/CD pipeline configuration can be found in the file [_Pipeline_configuration.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Pipeline_configuration.md)
 
+## AKS Cluster Monitoring
+Monitoring clusters in CI/CD is essential to ensuring the stability and performance of the Ci/CD pipelines. It allows for quick detection of issues such as resource constraints, failures, and bottlenecks, which in turn enables rapid response to resolve issues and improve the software development process.
+
+To ensure the infrastructure and software work as expected at all times, this project utilizes Azure Monitor features that provide access to various tracking charts and alerts.
+
+A more detailed description of measures implemented is available in the [_Cluster_monitoring.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Cluster_monitoring.md)
+
+
 ## Contributors 
 
 - [Maya Iuga](https://github.com/maya-a-iuga)
