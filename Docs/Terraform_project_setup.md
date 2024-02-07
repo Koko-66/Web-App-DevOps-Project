@@ -99,4 +99,4 @@ In order to protect sensitive information Terraform offers an option to store th
 - information required for authorization (i.e. `client_id`, `client_secret`, `subscription_id` and `tenat_id`)
 The variables are also tagged as "sensitive", preventing terraform from showing their values in the *plan* and **apply* commands - `(sensitive value)` is shown instead as illustrated in the image below.
 
-<img src="terraform_sensitive_value.png" alt="tplan-screenshot-sensitive-value" style="width:400px;"/>
+<img src="media/terraform_sensitive_value.png" alt="terraform plan - screenshot of sensitive value" style="width:500px;"/>

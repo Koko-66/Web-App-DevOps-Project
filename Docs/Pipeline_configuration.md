@@ -16,7 +16,7 @@ The two elements that are retained from the template are:
 
 The two tasks run by the pipeline require setting up two service connections - one between Azure DevOps and Docker Hub where the app image is stored, and another between Azure DevOps and Azure Resource Manager, which facilitates connection to AKS cluster.
 
-<img src="service_connections.png" alt="available-service-connections" style="width:300px;"/>
+<img src="media/service_connections.png" alt="available-service-connections" style="width:300px;"/>
 
 ### Docker Hub
 The authorisation process for accessing the Docker Hub account, requires a personal access token (to be used as password when setting up the connection), which can be obtained by accessing `Account > Security > Access tokens` in your DockerHub.
@@ -50,7 +50,7 @@ This was achieved by editing the Simple Pipeline yaml configuration template and
         </ul>
     </div>
     <div style="display: flex; justify-content: left">
-        <img src="build_pipeline_task.png" alt-text="Build pipeline task setup" style="width:250px;">
+        <img src="media/build_pipeline_task.png" alt-text="Build pipeline task setup" style="width:250px;">
     </div>
 </div>
 
@@ -70,7 +70,7 @@ This was achieved by setting up a _Deploy to Kubernetes_ task using the followin
         </ul>
     </div>
     <div style="display: flex; justify-content: left">
-        <img src="release_pipeline_task.png" alt-text="Release pipeline task setup" style="width:250px;">
+        <img src="media/release_pipeline_task.png" alt-text="Release pipeline task setup" style="width:250px;">
     </div>
 </div>
 
@@ -80,5 +80,5 @@ The two tasks create a complete CI/CD pipeline for this project which was then t
 - Accessing the application locally using the port forwarding method and testing its functionality.
 - Checking pods logs using `kubectl logs -f <pod-name>` command to ensure application is running correctly (log output shown below).
 
-<img src="kubectl_logs_output.png" alt-text="Pod's log output" style="width:80vw">
+<img src="media/kubectl_logs_output.png" alt-text="Pod's log output" style="width:80vw">
 
