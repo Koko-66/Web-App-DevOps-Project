@@ -4,13 +4,27 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 
 ## Table of Contents
 
+[SECTION 1 - App](#section-1---app)
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Technology Stack](#technology-stack)
-- [Docker Image and Containerization process](#docker-image-and-containerization-process)
+
+[SECTION 2 - System architecture](#section-2---system-architecture)
+- [Containerisation with Docker](#containerisation-with-docker)
 - [Terraform (IaC)](#terraform-iac)
+- [Kubernetes deployment](#kubernetes-deployment)
+- [CI/CD implementation with Azure Pipelines](#cicd-implementation-with-azure-pipelines)
+- [AKS Cluster Monitoring](#aks-cluster-monitoring)
+- [Managing Secrets](#managing-secrets)
 - [Contributors](#contributors)
 - [License](#license)
+<br><br>
+---
+---
+
+## SECTION 1 - App
+
+Section below contains description of the app, outlining its main features, prerequisites, usage and tech stack used to build it.
 
 ## Features
 
@@ -35,11 +49,9 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
     - In conjunction with Shipping Date, can be used to track 'time-to-delivery' providing valuable insights into potential issues with delivery service providers/bottlenecks.
     - Track and compare the performance (delivery success/time-to-delivery) of various delivery service providers, etc.
     
-    The feature was implemented successfully in feature branch `feature/add-delivery-date` and is ready to be merged into the production branch when required (provided there are no merge conflicts).
+    The feature was implemented successfully in feature branch [`feature/add-delivery-date`](https://github.com/Koko-66/Web-App-DevOps-Project/tree/feature/add-delivery-date) and is ready to be merged into the production branch when required (provided there are no merge conflicts).
 
-    NOTE: It is recommended that additional functionality implementing solutions mentioned above are done in separate branch(es).
-    
-    [Screenshot to be added]
+    _NOTE: It is recommended that additional functionality implementing the solutions mentioned above are developed in separate branch(es)._
 
 ## Getting Started
 
@@ -51,6 +63,8 @@ For the application to successfully run, you need to install the following packa
 - pyodbc (version 4.0.39)
 - SQLAlchemy (version 2.0.21)
 - werkzeug (version 2.2.3)
+- azure-identity (version 1.15.0)
+- azure-keyvault-secrets (version 4.7.0)
 
 ### Usage
 
@@ -67,36 +81,28 @@ To run the application, you simply need to run the `app.py` script in this repos
 - **Frontend:** The user interface is designed using HTML, CSS, and JavaScript to ensure a smooth and intuitive user experience.
 
 - **Database:** The application employs an Azure SQL Database as its database system to store order-related data.
+<br><br>
+---
+---
 
-## Docker Image and Containerization process
+## SECTION 2 - System architecture
 
-The app has been containerized &mdash; packaged up with all its code, dependencies, necessary executables and configuration files &mdash; to facilitate easy and quick deployment.
+In this project, the system architecture is built using various components. Key elements include GitHub for version control, Docker for containerization and Docker Hub for image hosting and distribution, Azure Pipelines for automating CI/CD, Terraform for infrastructure as code, AKS clusters for scalable Kubernetes environments, Azure Monitor with Application Insights and Logs for monitoring and advanced data analytics, and Azure Key Vault for secure credential management. This section of documentation will provide insights into each component's role and implementation. 
 
-Containerization has many benefits. Because containers encapsulate applications with all their dependencies, they run consistently irrespective of the end user's operating system or environment. This isolation of the container's content promotes security and prevents conflicts between applications and libraries. Containers are also highly portable and efficient. They can be easily run on any machine(s) now matter what its underlying infrastructure, and because they share the host's OS kernel, they do not take up unnecessary resources and are very lightweight.
+The diagram below provides and overview of how the components interact with each other to create a comprehensive, stable and reliable system.
+
+<!-- ![UML diagram](media/UML_diagram.png) -->
+
+<img src="media/UML_diagram.png" alt="UML diagram">
+
+## Containerisation with Docker
+
+The app has been containerized &mdash; packaged up with all its code, dependencies, necessary executables and configuration files &mdash; and pushed to Docker Hub to facilitate version management, and easy and quick updates and deployment.
+
+Containerization has many benefits. Because containers encapsulate applications with all their dependencies, they run consistently irrespective of the end user's operating system or environment. This isolation of the container's content promotes security and prevents conflicts between applications and libraries. Containers are also highly portable and efficient. They can be easily run on any machine(s) no matter the underlying infrastructure, and because they share the host's OS kernel, they do not take up unnecessary resources and are very lightweight.
 
 These advantages are especially important in a DevOps setting, where applications are deployed across different environments (e.g. development, test, production) and shared between developers working on machines with different OS and hardware. Their small and lightweight nature make continuous deployment easy, and because they can be used together to build larger multi-container applications they offer great flexibility and scalability.
-
-### Prerequisites
-
-In order to run this container you'll need docker installed.
-
-* [Windows](https://docs.docker.com/windows/started)
-* [OS X](https://docs.docker.com/mac/started/)
-* [Linux](https://docs.docker.com/linux/started/)
-
-### Install and setup
-
-You can either pull the image prepared for you from DockerHub using `docker pull koko660/flask-orders-app` command or build the image yourself. The steps taken to containerize the application are described in detail in [_Containerization process.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Containerization_process.md).
-
-### Usage
-
-#### Container Parameters and Environment Variables
-
-v1.0: none required
-
-### Versioning
-
-Latest image: flask-orders-app:v1.0 
+More details about the container and containerisation process are available in [_Docker_overview&containerisation_process.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Docker_overview&containerisation_process.md).
 
 ## Terraform (IaC)
 
@@ -113,7 +119,7 @@ It also allows to quickly scale the application up or down, depending on need, a
 
 The deployment process and manifests used in this project are described in more detail in [_Deploying_with_Kubernetes.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Deploying_with_Kubernetes.md)
 
-## CI/CD implementation
+## CI/CD implementation with Azure Pipelines
 
 The project takes advantage of the CI/CD capabilities of Azure DevOps' **Pipelines** to automate the building of Docker image and deployment of the app to the AKS cluster. This approach ensures automated, efficient and consistent process for implementing code changes and their deployment.
 
@@ -126,6 +132,9 @@ To ensure the infrastructure and software work as expected at all times, this pr
 
 A more detailed description of measures implemented is available in the [_Cluster_monitoring.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Cluster_monitoring.md)
 
+## Managing Secrets
+Protecting and managing secrets and sensitive information is a crucial aspect of development, integral to maintaining the security and integrity of both the application and its users' data. Failure to adequately protect these can lead to serious consequences, including unauthorized access, data breaches, financial loss, reputational damage, and even legal liabilities. 
+Key Vault in Azure portal offers effective secret management that helps mitigate risks, stay in line with privacy standards, and uphold the integrity of applications, while. Details of how Azure Key Vault is used in this project are available in file [Secrets_management_with_Azure_Key_Vault.md]A more detailed description of measures implemented is available in the [_Cluster_monitoring.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Secrets_management_with_Azure_Key_Vault.md)
 
 ## Contributors 
 

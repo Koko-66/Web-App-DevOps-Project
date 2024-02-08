@@ -1,6 +1,33 @@
-# Containerization Process
+# Overview and containerisation process
 
-## Dockerfile configuration
+## Overview
+
+### Install and setup
+
+Working with Docker images and containers requires installation of the software. See Docker documentation on how to install it for different systems. 
+
+* [Windows](https://docs.docker.com/windows/started)
+* [OS X](https://docs.docker.com/mac/started/)
+* [Linux](https://docs.docker.com/linux/started/)
+
+Once installed, the image can be then either pulled from Docker Hub using `docker pull koko660/flask-orders-app` command. If there is a need to build the image again, the steps taken to containerise the image are described in detail [below](#dockerfile-configuration).
+
+### Usage
+
+#### Container Parameters and Environment Variables
+
+    latest: none required
+    v1.0: none required
+
+### Versioning
+
+    Latest image: flask-orders-app:latest (updated 8 Feb 2024)
+    Initial image: flask-orders-app:v1.0
+
+
+## Containerisation process
+
+### Dockerfile configuration
 
 Commands included in the Dockerfile:
 
@@ -42,32 +69,48 @@ Commands included in the Dockerfile:
 
 8. `CMD ["python", "app.py]`: runs app.py file with Python.
 
-## Build Docker image
+## Building Docker image
 
-To build the docker image run `docker build -t <image-name>` command in your terminal, replacing `<image-name>` with name of your choice.
-We chose `flask-orders-app`.
+Run `docker build -t <image-name>` command in the terminal to build the docker image, where `<image-name>` was replaced with `flask-orders-app`.
 
-### Test containerization
+### Testing containerisation
 
-To test whether your containerization was successful and the app can be accessed from the container, run the container from the pulled/newly created image. For example, to initiate the Docker container from the pulled image, execute `docker run -p 5000:5000 koko660/flask-orders-app` in your terminal/command line. Once the containers is up and running, access http://127.0.0.1:5000 in your browsers to check access to the application and test if everything is working as expected.
+To test whether the containerization was successful and the app can be accessed from the container, the container was run from the newly created image with the command 
+
+    docker run -p 5000:5000 flask-orders-app
+ 
+Application was then accessed via browser at http://127.0.0.1:5000 and its functionality checked to ensure everything works as expected.
 
 ## Push image to Docker Hub
 
-If you decided to create your own image, you can push to your own Docker Hub. To do this, first tag it with your username and version, e.g.:
-`docker tag <your-image-name> <docker-hub-username>/<your-image-name>:<version>`
-Once this is done, executing `docker push` will push the image to your the hub. (Make sure you are logged in to your Docker Hub account).
-It is recommended that the newly pushed image is tested following the testing steps as described above: pull the image, run the container and test access to the application.
+To implement version control, ensure that the latest image is always available and prepare for future automation of the process, the image was pushed to Docker Hub with:
 
-## Running the container - Troubleshooting
+    docker tag flask-orders-app <docker-hub-username>/flask-orders-app:v1.0
+    docker push
 
-_**Issue**_: Mac users can get an error: <span style="color:#ca1b47">_Port 5000 is already in use_</span> when trying to run the container.
+The pushed image was then **tested again** as in the step above, though this time using the image from the Docker Hub repository:
+
+    docker run -p 5000:5000 koko660/flask-orders-app
+
+## Running the container - troubleshooting
+During testing the container a couple of issues came up - see below for their details and solutions.
+
+_**Issue**_: Mac users can get the following error when trying to run the container:
+
+    Port 5000 is already in use 
 
 _**Reason**_: Port 5000 is used by Mac for an AirPlay Receiver. 
 
-_**Solution**_: You can either disable AirPlay Receiver from Settings > AirDrop & Handoff or you can map the container to a different port on your machine, e.g. port 5001. To do this use the following command when building an image: `docker run -p 5001:5000 flask-orders-app`. This will map the container port 5000 to port 5001 on your localhost.
+_**Solution**_: You can either disable AirPlay Receiver from *Settings > AirDrop & Handoff* or you can map the container to a different port on your machine, e.g. port 5001. To do this use the following command when building an image: 
+
+    docker run -p 5001:5000 flask-orders-app
+
+This will map the container port 5000 to port 5001 on your localhost.
 The application will then be accessible at http://127.0.0.1:5001 rather than http://127.0.0.1:5000 as indicated by Flask.
 ***
-_**Issue**_: When running the app, a warning message appears: <span style="color:orange">_WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested_</span>
+_**Issue**_: When running the app, a warning message appears: 
+
+    WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
 
 _**Reason**_: By default Docker uses the amd64 platform, while Mac with Apple silicon processor uses an ARM platform.
 
