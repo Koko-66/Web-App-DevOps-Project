@@ -1,23 +1,34 @@
 from flask import Flask, render_template, request, redirect, url_for
+from azure.identity import ManagedIdentityCredential, DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-import pyodbc
-import os
+
 
 # Initialise Flask App
 app = Flask(__name__)
 
-# database connection 
-server = 'devops-project-server.database.windows.net'
-database = 'orders-db'
-username = 'maya'
-password = 'AiCore1237'
-driver= '{ODBC Driver 18 for SQL Server}'
+# Set up Azure Key Vault
+key_vault_url = "https://kcn-aks-cluster-vault.vault.azure.net/"
+
+# Set up Azure Key Vault client with Managed Identity
+credential = DefaultAzureCredential()
+secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
+
+# Access the secret values from Key Vault
+server = secret_client.get_secret("orders-app-db-server").value
+database = secret_client.get_secret("orders-app-db-name").value
+username = secret_client.get_secret("orders-app-db-username").value
+password = secret_client.get_secret("orders-app-db-pswd").value
+
+
+# database connection
+driver = '{ODBC Driver 18 for SQL Server}'
 
 # Create the connection string
-connection_string=f'Driver={driver};\
+connection_string = f'Driver={driver};\
     Server=tcp:{server},1433;\
     Database={database};\
     Uid={username};\
@@ -27,7 +38,8 @@ connection_string=f'Driver={driver};\
     Connection Timeout=30;'
 
 # Create the engine to connect to the database
-engine = create_engine("mssql+pyodbc:///?odbc_connect={}".format(connection_string))
+engine = create_engine(
+    "mssql+pyodbc:///?odbc_connect={}".format(connection_string))
 engine.connect()
 
 # Create the Session
@@ -63,7 +75,8 @@ def display_orders():
     session = Session()
 
     # Fetch a subset of data for the current page
-    current_page_orders = session.query(Order).order_by(Order.user_id, Order.date_uuid).slice(start_index, end_index).all()
+    current_page_orders = session.query(Order).order_by(
+        Order.user_id, Order.date_uuid).slice(start_index, end_index).all()
 
     # Calculate the total number of pages
     total_rows = session.query(Order).count()
@@ -72,7 +85,8 @@ def display_orders():
     # Close the session
     session.close()
 
-    return render_template('orders.html', orders=current_page_orders, page=page, total_pages=total_pages)
+    return render_template('orders.html', orders=current_page_orders,
+                           page=page, total_pages=total_pages)
 
 # route to add orders
 @app.route('/add_order', methods=['POST'])
