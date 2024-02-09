@@ -11,7 +11,7 @@ This module provisions networking components in the Azure Networking Services ne
     - kube-apiserver-rule Port (TCP/443) which enables access to the cluster from a specified public IP address using `kubectl`.
     - SSH Port (TCP/22) which allows SSH access to the nodes for troubleshooting and administrative purposes from the specified public IP address.
 
-<sup>*</sup>NOTE: all address spaces are defined using CIDR (Classless Inter-Domain Routing) notation where the number after slash indicates the subnet mask, specifying the number of bits in the address space that cannot be changed. 10.0.0.0/16 gives an address space range between 10.0.0.0 and 10.0.255.255 while subnet masks give ranges between 10.0.1.0 and 10.0.1.255 and 10.0.2.0 and 10.0.2.255.
+><sup>*</sup>NOTE: all address spaces are defined using CIDR (Classless Inter-Domain Routing) notation where the number after slash indicates the subnet mask, specifying the number of bits in the address space that cannot be changed. 10.0.0.0/16 gives an address space range between 10.0.0.0 and 10.0.255.255 while subnet masks give ranges between 10.0.1.0 and 10.0.1.255 and 10.0.2.0 and 10.0.2.255.
 ***
 
 ### Module variables

@@ -91,20 +91,18 @@ In this project, the system architecture is built using various components. Key 
 
 The diagram below provides and overview of how the components interact with each other to create a comprehensive, stable and reliable system.
 
-<!-- ![UML diagram](media/UML_diagram.png) -->
-
-<img src="media/UML_diagram.png" alt="UML diagram">
+<img src="docs/media/UML_diagram.png" alt="UML diagram" width=80%>
 
 ## Containerisation with Docker
 
-The app has been containerized &mdash; packaged up with all its code, dependencies, necessary executables and configuration files &mdash; and pushed to Docker Hub to facilitate version management, and easy and quick updates and deployment.
+The app has been containerised &mdash; packaged up with all its code, dependencies, necessary executables and configuration files &mdash; and pushed to Docker Hub to facilitate version management, and easy and quick updates and deployment.
 
 Containerization has many benefits. Because containers encapsulate applications with all their dependencies, they run consistently irrespective of the end user's operating system or environment. This isolation of the container's content promotes security and prevents conflicts between applications and libraries. Containers are also highly portable and efficient. They can be easily run on any machine(s) no matter the underlying infrastructure, and because they share the host's OS kernel, they do not take up unnecessary resources and are very lightweight.
 
 These advantages are especially important in a DevOps setting, where applications are deployed across different environments (e.g. development, test, production) and shared between developers working on machines with different OS and hardware. Their small and lightweight nature make continuous deployment easy, and because they can be used together to build larger multi-container applications they offer great flexibility and scalability.
 
 In this project Docker is used to containerise the application which will then be deployed to our cluster, while Docker Hub is used for hosting and version control of the image.
-More details about the container and containerisation process are available in [_Docker_overview&containerisation_process.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Docker_overview&containerisation_process.md).
+More details about the container and containerisation process are available in [_Docker_overview&containerisation_process.md_](docs/Docker_overview&containerisation_process.md).
 
 ## Terraform (IaC)
 
@@ -112,31 +110,33 @@ Terraform is an Infrastructure as Code tool used to define and provision infrast
 
 IaC is a powerful tool enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
 
-In this project Terraform is used to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [_Terraform project setup.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Terraform_project_setup.md). 
+In this project Terraform is used to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [_Terraform project setup.md_](docs/Terraform_project_setup.md). 
 
 ## Kubernetes deployment 
 
-Deploying the containers using Kubernetes offers significant advantages. It mitigates errors by automating the processes of deploying, scaling and updating applications, and adds to the overall portability of the whole app, which can be easily moved between different environments. 
+Deploying containers using Kubernetes offers significant advantages. It mitigates errors by automating the processes of deploying, scaling and updating applications, and adds to the overall portability of the whole app, since it can be easily moved between different environments. 
 It also allows to quickly scale the application up or down, depending on need, and is designed to be self-healing - it monitors its components for failures and can automatically recover from them. 
 
-The deployment process and manifests used in this project are described in more detail in [_Deploying_with_Kubernetes.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Deploying_with_Kubernetes.md)
+In this application, Kubernetes in conjunction with Azure Kubernetes Services is used to manage the deployment and maintenance of node(s) and pods where the app containers will be deployed.
+The deployment process and manifests used in this project are described in more detail in [_Deploying_with_Kubernetes.md_](docs/Deploying_with_Kubernetes.md)
 
 ## CI/CD implementation with Azure Pipelines
 
-The project takes advantage of the CI/CD capabilities of Azure DevOps' **Pipelines** to automate the building of Docker image and deployment of the app to the AKS cluster. This approach ensures automated, efficient and consistent process for implementing code changes and their deployment.
+The project takes advantage of the CI/CD capabilities of Azure DevOps' **Pipelines** to automate the building of the Docker image, its push to Docker Hub and the deployment of the app to the AKS cluster. This approach ensures automated, efficient and consistent process for implementing code changes and their deployment.
 
-The details of the CI/CD pipeline configuration can be found in the file [_Pipeline_configuration.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Pipeline_configuration.md)
+The details of the CI/CD pipeline configuration can be found in the file [_Pipeline_configuration.md_](docs/Pipeline_configuration.md)
 
 ## AKS Cluster Monitoring
 Monitoring clusters in CI/CD is essential to ensuring the stability and performance of the Ci/CD pipelines. It allows for quick detection of issues such as resource constraints, failures, and bottlenecks, which in turn enables rapid response to resolve issues and improve the software development process.
 
-To ensure the infrastructure and software work as expected at all times, this project utilizes Azure Monitor features that provide access to various tracking charts and alerts.
+To ensure the infrastructure and software work as expected at all times, this project utilises Azure Monitor features that provide access to various tracking charts and alerts.
 
-A more detailed description of measures implemented is available in the [_Cluster_monitoring.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Cluster_monitoring.md)
+A more detailed description of measures implemented is available in the [_Cluster_monitoring.md_](docs/Cluster_monitoring.md)
 
 ## Managing Secrets
-Protecting and managing secrets and sensitive information is a crucial aspect of development, integral to maintaining the security and integrity of both the application and its users' data. Failure to adequately protect these can lead to serious consequences, including unauthorized access, data breaches, financial loss, reputational damage, and even legal liabilities. 
-Key Vault in Azure portal offers effective secret management that helps mitigate risks, stay in line with privacy standards, and uphold the integrity of applications, while. Details of how Azure Key Vault is used in this project are available in file [Secrets_management_with_Azure_Key_Vault.md]A more detailed description of measures implemented is available in the [_Cluster_monitoring.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Secrets_management_with_Azure_Key_Vault.md)
+Protecting and managing secrets and sensitive information is a crucial aspect of development, integral to maintaining the security and integrity of both the application and its users' data. Failure to adequately protect these can lead to serious consequences, including unauthorised access, data breaches, financial loss, reputational damage, and even legal liabilities.
+
+Key Vault in Azure portal offers effective management of secrets that helps mitigate risks, and uphold privacy standards and integrity of applications. Details of how Azure Key Vault is used in this project are available in file [_Secrets_management_with_Azure_Key_Vault.md_](docs/Secrets_management_with_Azure_Key_Vault.md)
 
 ## Contributors 
 
@@ -146,3 +146,14 @@ Key Vault in Azure portal offers effective secret management that helps mitigate
 ## License
 
 This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
+
+## References
+
+- AiCore course content
+- [Docker documentation](https://docs.docker.com/)
+- [Kubernetes documentation](https://kubernetes.io/docs/home/)
+- [Terraform documentation](https://developer.hashicorp.com/terraform/docs)
+- [Azure documentation](https://learn.microsoft.com/en-us/docs/)
+- [GitHub](https://github.com/orgs/community/discussions)
+- [Stack Overflow](https://stackoverflow.com/)
+
