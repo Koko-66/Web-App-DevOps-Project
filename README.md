@@ -102,15 +102,17 @@ The app has been containerized &mdash; packaged up with all its code, dependenci
 Containerization has many benefits. Because containers encapsulate applications with all their dependencies, they run consistently irrespective of the end user's operating system or environment. This isolation of the container's content promotes security and prevents conflicts between applications and libraries. Containers are also highly portable and efficient. They can be easily run on any machine(s) no matter the underlying infrastructure, and because they share the host's OS kernel, they do not take up unnecessary resources and are very lightweight.
 
 These advantages are especially important in a DevOps setting, where applications are deployed across different environments (e.g. development, test, production) and shared between developers working on machines with different OS and hardware. Their small and lightweight nature make continuous deployment easy, and because they can be used together to build larger multi-container applications they offer great flexibility and scalability.
+
+In this project Docker is used to containerise the application which will then be deployed to our cluster, while Docker Hub is used for hosting and version control of the image.
 More details about the container and containerisation process are available in [_Docker_overview&containerisation_process.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Docker_overview&containerisation_process.md).
 
 ## Terraform (IaC)
 
-Terraform is an Infrastructure as Code tool allowing to define and provision the infrastructure resources (e.g. virtual machines, networks, and databases) in a declarative way using code. The code defines the infrastructure configurations, which can then be executed to create, modify, or destroy the specified resources.
+Terraform is an Infrastructure as Code tool used to define and provision infrastructure resources (e.g. virtual machines, networks, and databases) in a declarative way, i.e. using code. The code defines the infrastructure configurations, which can then be executed to create, modify, or destroy the specified resources.
 
-IaC is a powerful tool in the hands of DevOps enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
+IaC is a powerful tool enabling automation, version control, reusability and consistency in the provisioning and management of infrastructure resources.
 
-Terraform is used in this project to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [_Terraform project setup.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Terraform_project_setup.md). 
+In this project Terraform is used to provision Azure resources needed to run the app on Azure Kubernetes Service (AKS). It comprises two modules: networking-module and aks-cluster-module. For more details on the setup of the Terraform project and modules see [_Terraform project setup.md_](https://github.com/Koko-66/Web-App-DevOps-Project/blob/main/Docs/Terraform_project_setup.md). 
 
 ## Kubernetes deployment 
 

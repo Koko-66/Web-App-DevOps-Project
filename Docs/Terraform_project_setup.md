@@ -11,7 +11,7 @@ This module provisions networking components in the Azure Networking Services ne
     - kube-apiserver-rule Port (TCP/443) which enables access to the cluster from a specified public IP address using `kubectl`.
     - SSH Port (TCP/22) which allows SSH access to the nodes for troubleshooting and administrative purposes from the specified public IP address.
 
-<sup>*</sup>NOTE: all address spaces are defined using CIDR (Classless Inter-Domain Routing) notation where the number after slash indicates the subnet mask, specifying the number of bits in the address space that cannot be changed. 10.0.0.0/16 gives an address space range between 10.0.0.0 and 10.0.255.255 while subnet masks give a range between 10.0.1.0 and 10.0.1.255 and 10.0.2.0 and 10.0.2.255.
+<sup>*</sup>NOTE: all address spaces are defined using CIDR (Classless Inter-Domain Routing) notation where the number after slash indicates the subnet mask, specifying the number of bits in the address space that cannot be changed. 10.0.0.0/16 gives an address space range between 10.0.0.0 and 10.0.255.255 while subnet masks give ranges between 10.0.1.0 and 10.0.1.255 and 10.0.2.0 and 10.0.2.255.
 ***
 
 ### Module variables
@@ -41,7 +41,7 @@ Apart from creating the cluster, the code also defines the default node pool wit
 - size of the virtual machine as Standard_DS2_v2
 - enabled auto-scaling with minimum number of nodes set to 1 and maximum to 3 to support increases in traffic
 
-Serivce principal block provides authentication details needed to access Azure and provision the cluster.
+Service principal block provides authentication details needed to access Azure and provision the cluster.
 ***
 
 ### Module variables
@@ -73,11 +73,11 @@ Serivce principal block provides authentication details needed to access Azure a
 
 
 ## Main Configuration
-The main.tf configuration file for the project contains code that:
+The _main.tf_ configuration file for the project contains code that:
 - sets up the provider for the project as AzureRM v.3.0.0;
-- provides authentication details for accessing Azure platform (see [Handling sensitive information](#handling-sensitive-information)) section below);
-- links networking module to the main project, providing values for the resource_group_name, location and vnet_address_space;
-- links the cluster module to the main project, providing values for the aks_cluster_name, cluster_location, dns_prefix, kubernetes_version.
+- provides authentication details for accessing Azure platform (see [Handling sensitive information](#handling-sensitive-information) section below);
+- links networking module to the main project, providing values for the `resource_group_name`, `location and vnet_address_space`;
+- links the cluster module to the main project, providing values for the `aks_cluster_name`, `cluster_location`, `dns_prefix, kubernetes_version`.
 
 <span style="color:#10a292; font-size:1.1em;">Input variables</span>
 
@@ -94,9 +94,20 @@ All variables specified above have "sensitive" attribute set to `true`.
 
 ## Handling sensitive information
 
-In order to protect sensitive information Terraform offers an option to store these in a .tfvars file. The values, rather than being hardcoded into the code, can be then pulled at runtime using a `-var-file="<terraform>.tfvars` flag when running `terraform plan` or `apply` commands, e.g. `terraform plan -var-file="mysecrets.tfvars"`. In this project, we used this solution to protect the values of: 
+As a way of protecting sensitive information, Terraform offers an option to store these in a .tfvars file. The values, rather than being hardcoded into the code, can be pulled in at runtime using a `-var-file="<terraform>.tfvars` flag when running `terraform plan` or `apply` commands, e.g.:
+```bash     
+# plan actions
+terraform plan -var-file="mysecrets.tfvars"
+# apply actions
+terraform apply -var-file="mysecrets.tfvars"
+```
+
+In this project, we used this solution to protect the values of: 
 - `var.source_ip`, used in the security rules to allow access to the cluster from the user's machine/IP address and
-- information required for authorization (i.e. `client_id`, `client_secret`, `subscription_id` and `tenat_id`)
-The variables are also tagged as "sensitive", preventing terraform from showing their values in the *plan* and **apply* commands - `(sensitive value)` is shown instead as illustrated in the image below.
+- information required for authorization (i.e. `client_id`, `client_secret`, `subscription_id` and `tenant_id`).
+
+The variables are also tagged as "sensitive", preventing terraform from showing their values in the *plan* and **apply* commands - `(sensitive value)` is shown instead as illustrated in the image below. 
 
 <img src="media/terraform_sensitive_value.png" alt="terraform plan - screenshot of sensitive value" style="width:500px;"/>
+
+Despite these precautions, sensitive information is still visible in the state files created when running `terraform apply -var-file="mysecrets.tfvars"`. To prevent their exposure the state files were excluded from git tracking, by adding `*.tfstate*` to the .gitignore file
