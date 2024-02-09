@@ -1,5 +1,15 @@
 # Deploying with Kubernetes
 
+## Table of Contents
+- [Defining resources - Deployment and Service](#defining-resources---deployment-and-service)
+    - [Deployment](#deployment)
+    - [Service](#service)
+- [Deploying resources](#deploying-resources)
+- [Testing and validating](#testing-and-validating)
+- [App distribution](#app-distribution)
+    - [Sharing app with internal users](#sharing-app-with-internal-users)
+    - [Sharing app with external users](#sharing-app-with-external-users)
+
 ## Defining resources - Deployment and Service
 The manifest file for this application, **application-manifest.yaml** contains the code defining the following:
 <!-- Explain the key concepts and configuration settings within these manifests. -->

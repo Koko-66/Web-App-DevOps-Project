@@ -1,5 +1,15 @@
 # Terraform project setup
 
+## Table of Contents
+
+- [Networking module](#networking-module)
+    - [Module variables](#module-variables)
+- [AKS cluster module](#aks-cluster-module)
+    - [Module variables](#module-variables-1)
+- [Main Configuration](#main-configuration)
+- [Handling sensitive information](#handling-sensitive-information)
+
+
 ## **networking-module**
 
 This module provisions networking components in the Azure Networking Services needed to support the AKS cluster. These components include:
@@ -90,7 +100,6 @@ The _main.tf_ configuration file for the project contains code that:
 |`source_ip`| The source IP address for use in the network security rule|
 
 All variables specified above have "sensitive" attribute set to `true`.
-
 
 ## Handling sensitive information
 

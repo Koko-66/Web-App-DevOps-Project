@@ -91,7 +91,7 @@ In this project, the system architecture is built using various components. Key 
 
 The diagram below provides and overview of how the components interact with each other to create a comprehensive, stable and reliable system.
 
-<img src="docs/media/UML_diagram.png" alt="UML diagram" width=80%>
+![UML diagram](docs/media/UML_diagram.png)
 
 ## Containerisation with Docker
 

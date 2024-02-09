@@ -1,5 +1,18 @@
 # Overview and containerisation process
 
+## Table of Contents
+
+- [Overview](#overview)
+    - [Install and setup](#install-and-setup)
+    - [Usage](#usage)
+    - [Versioning](#versioning)
+- [Containerisation process](#containerisation-process)
+    - [Dockerfile configuration](#dockerfile-configuration)
+    - [Building Docker image](#building-docker-image)
+    - [Testing containerisation](#testing-containerisation)
+- [Pushing image to Docker Hub](#pushing-image-to-docker-hub)
+- [Running the container - troubleshooting](#running-the-container---troubleshooting)
+
 ## Overview
 
 ### Install and setup
@@ -23,7 +36,6 @@ Once installed, the image can be then either pulled from Docker Hub using `docke
 
     Latest image: flask-orders-app:latest (updated 8 Feb 2024)
     Initial image: flask-orders-app:v1.0
-
 
 ## Containerisation process
 
@@ -69,7 +81,7 @@ Commands included in the Dockerfile:
 
 8. `CMD ["python", "app.py]`: runs app.py file with Python.
 
-## Building Docker image
+### Building Docker image
 
 Run `docker build -t <image-name>` command in the terminal to build the docker image, where `<image-name>` was replaced with `flask-orders-app`.
 
@@ -81,7 +93,7 @@ To test whether the containerization was successful and the app can be accessed 
  
 Application was then accessed via browser at http://127.0.0.1:5000 and its functionality checked to ensure everything works as expected.
 
-## Push image to Docker Hub
+## Pushing image to Docker Hub
 
 To implement version control, ensure that the latest image is always available and prepare for future automation of the process, the image was pushed to Docker Hub with:
 

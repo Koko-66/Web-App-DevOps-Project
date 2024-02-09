@@ -1,12 +1,24 @@
 # Azure DevOps Pipeline configuration
 
+## Table of Contents
+
+- [Setting up Azure DevOps](#setting-up-azure-devops)
+- [Setting up the service connections](#setting-up-the-service-connections)
+    - [Docker Hub](#docker-hub)
+    - [Azure Resource Manager](#azure-resource-manager)
+- [Setting up the pipelines](#setting-up-the-pipelines)
+    - [Build pipeline](#build-pipeline)
+    - [Release pipeline](#release-pipeline)
+- [Testing the pipeline](#testing-the-pipeline)
+    - [Issues revealed during testing](#issues-revealed-during-testing)
+
 The project uses Pipelines for two purposes: 
 1. To build and push the Docker image each time there is a change to the code.
 2. To redeploy the cluster and its elements each time there is a change.
 
-## Setting up the Pipeline
+## Setting up Azure DevOps
 
-The first step in creating the new Pipeline for the project, was to select GitHub as the code source, connecting to the GitHub repo and selecting a Starter Pipeline to provide the initial implementation template.
+After setting up Azure DevOps account and project within the account, the first step in creating the new Pipeline was to select GitHub as the code source, connecting to the GitHub repo and selecting a Starter Pipeline to provide the initial implementation template.
 
 <img src="media/new_pipeline.png" alt="Creating a new pipeline" width=80%>
 
@@ -39,6 +51,8 @@ Connection of Azure DevOps with the AKS cluster requires Azure Resource Manager 
 Once again, the connection was verified firstly by the appearance of correct resource group and secondly by monitoring Azure messages.
 
 Both service connections were named in a meaningful way allowing their easy identification.
+
+## Setting up the pipelines
 
 ### Build pipeline
 In order to keep the Docker image up to date, a Build Pipeline was added to the CI/CD configuration to push the code to Docker Hub with each change to the `main` branch (controlled by the `trigger` value set to `main` as mentioned above).
@@ -80,7 +94,6 @@ This was achieved by setting up a _Deploy to Kubernetes_ task using the followin
 
 The resulting Pipeline yml file is available in this project [here](../azure-pipelines.yml).
 
-
 ## Testing the pipeline
 The two tasks create a complete CI/CD pipeline for this project which was then tested by: 
 - Investigating the status of pods to ensure they have been created correctly after running the pipeline. 
@@ -89,7 +102,7 @@ The two tasks create a complete CI/CD pipeline for this project which was then t
 <br><br>
 <img src="media/kubectl_logs_output.png" alt-text="Pod's log output" style="width:80vw">
 
-### Issues revealed during testing:
+### Issues revealed during testing
 
 After the first run, the pods `AGE` was still showing as that from previous deployment, which meant that the pods were not recreated as expected. This was caused by the application-manifest.yaml specifying the container image as having a tag 'v1.0', while the updated images are tagged as 'latest'. Removing the tag from the manifest ensured that the latest image is being used and resolved the issue.
 

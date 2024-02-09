@@ -1,5 +1,15 @@
 # Secrets management with Azure Key Vault
 
+## Table of Contents
+
+- [Key Vault settings and setup](#key-vault-settings-and-setup)
+    - [Permissions and access settings](#permissions-and-access-settings)
+- [Adding secrets to the Vault](#adding-secrets-to-the-vault)
+- [Integrating with application in Python](#integrating-with-application-in-python)
+- [Testing and troubleshooting](#testing-and-troubleshooting)
+    - [Issues found](#issues-found)
+    - [Further investigation](#further-investigation)
+
 ## Key Vault settings and setup
 
 To provide secure storing sensitive information required by the application a new Key Vault was created and linked to the subscription and resource group used throughout the project. The location selected for the vault also matched the location selected for other resources in the cluster, and was set to the nearest geographically for low latency. Key Vault's permission model was left as default RBAC (Azure role-based access control), as were the remaining settings.
@@ -28,8 +38,6 @@ Hardcoding sensitive information into an app poses serious security risks and is
 All of these are required to make connection to and interact with the database.
 
 ## Integrating with application in Python 
-
-<!-- Document the modifications made to the application code to incorporate manage identity credentials for secure retrieval of database connection details-->
 
 Integration of the Key Vault with the app, required installation of two additional libraries: `azure-identity` and `azure-keyvault-secrets`. These were added to the `requirements.txt` file.
 
